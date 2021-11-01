@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Rarirty_Score.Models
+namespace RarityScore.Models
 {
     public class AttributesResult
     {

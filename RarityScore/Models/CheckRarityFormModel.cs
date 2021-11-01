@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace Rarirty_Score.Models
+namespace RarityScore.Models
 {
     public class CheckRarityFormModel
     {
