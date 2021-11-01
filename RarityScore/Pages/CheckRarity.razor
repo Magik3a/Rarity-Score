@@ -29,20 +29,33 @@
     <div class="card bg-light col-lg-12" style="width: 22rem">
         <div class="card-body">
             <h3 class="card-title">Rarity score</h3>
-            <ul class="list-group">
-                Owner Address: 
-                
-                <li class="list-group-item">@terraContractResult.result?.owner</li>
-            </ul>
             
-            <ul class="list-group">
-                Properties
-                @foreach (var metadata in mappedMetadataResult.Metadata)
-                {
-                    <li class="list-group-item">@metadata.PropertyType - @metadata.Name <span class="badge badge-secondary">@metadata.Rarity %</span></li>
-                  //  <li class="list-group-item">@metadata.First().Value - @metadata.Last().Value <span class="badge badge-secondary">New</span></li>
-                }
-            </ul>
+            <div class="row">
+                <div class="col-md-4">
+                    
+                    <img class="img-thumbnail" src="https://cloudflare-ipfs.com/ipfs/@terraContractResult.result?.image.Split('/').Last()" />
+                    <div class="alert alert-dark" role="alert">
+                        <strong>Average Rarity: </strong>  00.00%
+                    </div>
+                    
+
+                </div>
+                <div class="col-md-8">
+                    <ul class="list-group">
+                        Owner Address:
+
+                        <li class="list-group-item">@terraContractResult.result?.owner</li>
+                    </ul>
+                    <ul class="list-group">
+                        Properties
+                        @foreach (var metadata in mappedMetadataResult.Metadata)
+                        {
+                            <li class="list-group-item">@metadata.PropertyType - @metadata.Name <span class="badge badge-secondary">@metadata.Rarity %</span></li>
+                            //  <li class="list-group-item">@metadata.First().Value - @metadata.Last().Value <span class="badge badge-secondary">New</span></li>
+                        }
+                    </ul>
+                </div>
+                </div>
         </div>
     </div></div>
 }
