@@ -1,0 +1,36 @@
+﻿@page "/attributes"
+
+@inject HttpClient Http
+
+<h3>Attributes</h3>
+
+<div class="row">
+@foreach (var attributesResult in attributes)
+{
+    <div class="card bg-light col-lg-3">
+        <div class="card-body">
+            <h3 class="card-title"> @attributesResult.Name</h3>
+           
+            
+            <ul class="list-group">
+                @foreach (var metadata in attributesResult.MetadataAttributes)
+                {
+                    
+                    <li class="list-group-item">@metadata.TraitName - @metadata.Rarity - @metadata.Count</li>
+                }
+            </ul>
+        </div>
+    </div>
+}
+</div>
+@code {
+
+    private  List<AttributesResult> attributes = new();
+
+	protected override async Task OnInitializedAsync()
+	{
+		var jsonAttributes = await Http.GetFromJsonAsync<Dictionary<string, Dictionary<string, Dictionary<string, decimal>>>>("attributes/attributes.json");
+	    attributes = AttributesResult.MapAttributes(jsonAttributes);
+
+	}
+}

@@ -1,0 +1,74 @@
+﻿@page "/checkrarity"
+@using Microsoft.Extensions.Logging
+@inject ILogger<CheckRarity> Logger
+@inject HttpClient Http
+
+<h1>Check Rarity</h1>
+
+<EditForm Model="@checkRarityFormModel" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <p>
+        <label>
+            Wallet Address:
+            <InputText @bind-Value="checkRarityFormModel.WalletAddress" />
+        </label>
+    </p>
+    <p>
+        <label>
+            Terranaut Id:
+            <InputNumber @bind-Value="checkRarityFormModel.TerranautId" />
+        </label>
+    </p>
+    <button disabled="@buttonDisables" type="submit">Submit</button>
+
+</EditForm>
+@if (terraContractResult != null)
+{
+    <div class="card bg-light mt-3" style="width: 22rem">
+        <div class="card-body">
+            <h3 class="card-title">Rarity score</h3>
+            @terraContractResult.result?.owner
+            
+            <ul class="list-group">
+                @foreach (var metadata in metadataResult)
+                {
+                    
+                    <li class="list-group-item">@metadata.First().Value - @metadata.Last().Value</li>
+                }
+            </ul>
+        </div>
+    </div>
+}
+@code {
+    private CheckRarityFormModel checkRarityFormModel = new() { };
+    private TerraContractResult terraContractResult;
+    private bool buttonDisables;
+
+    private List<Dictionary<string, string>> metadataResult;
+
+    private MetadataResult mappedMetadataResult;
+
+    private async void HandleValidSubmit()
+    {
+        Logger.LogInformation("HandleValidSubmit called");
+        buttonDisables = true;
+        try
+        {
+            var terraUrl = $"https://lcd.terra.dev/wasm/contracts/{checkRarityFormModel.WalletAddress}/store?query_msg=%7B%22nft_additional_info%22:%7B%22token_id%22:%22{checkRarityFormModel.TerranautId}%22%7D%7D";
+
+            terraContractResult = await Http.GetFromJsonAsync<TerraContractResult>(terraUrl);
+
+            metadataResult = System.Text.Json.JsonSerializer.Deserialize<List<Dictionary<string, string>>>(terraContractResult.result.metadata);
+
+            mappedMetadataResult = MetadataResult.MapMetadata(metadataResult);
+        }
+        finally
+        {
+             buttonDisables = false;
+             this.StateHasChanged();
+        }
+        
+    }
+
+}

@@ -1,0 +1,366 @@
+{
+  "Background": {
+    "Purple Starfield": {
+      "count": 682,
+      "percentage": 7.91
+    },
+    "Moons": {
+      "count": 316,
+      "percentage": 3.67
+    },
+    "Blue Starfield": {
+      "count": 686,
+      "percentage": 7.96
+    },
+    "Orange Planet": {
+      "count": 255,
+      "percentage": 2.96
+    },
+    "Glowing Planet": {
+      "count": 337,
+      "percentage": 3.91
+    },
+    "Blue Meteor Shower": {
+      "count": 158,
+      "percentage": 1.83
+    },
+    "Pink Planet": {
+      "count": 225,
+      "percentage": 2.61
+    },
+    "Green Starfield": {
+      "count": 722,
+      "percentage": 8.38
+    },
+    "Blue Planet": {
+      "count": 261,
+      "percentage": 3.03
+    },
+    "Starfield": {
+      "count": 546,
+      "percentage": 6.33
+    },
+    "Light Blue Planet": {
+      "count": 245,
+      "percentage": 2.84
+    },
+    "Pink & Blue Planets": {
+      "count": 330,
+      "percentage": 3.83
+    },
+    "Meteor Shower": {
+      "count": 567,
+      "percentage": 6.58
+    },
+    "Nebula": {
+      "count": 738,
+      "percentage": 8.56
+    },
+    "Stars": {
+      "count": 920,
+      "percentage": 10.67
+    },
+    "Blue & Orange Planets": {
+      "count": 382,
+      "percentage": 4.43
+    },
+    "Purple Meteor Shower": {
+      "count": 598,
+      "percentage": 6.94
+    },
+    "Purple Planet": {
+      "count": 643,
+      "percentage": 7.46
+    }
+  },
+  "Suit": {
+    "Gold Space Suit": {
+      "count": 280,
+      "percentage": 3.25
+    },
+    "Blue Space Suit": {
+      "count": 1628,
+      "percentage": 18.89
+    },
+    "White Space Suit": {
+      "count": 3188,
+      "percentage": 36.98
+    },
+    "Orange Space Suit": {
+      "count": 1536,
+      "percentage": 17.82
+    },
+    "Green Space Suit": {
+      "count": 1488,
+      "percentage": 17.26
+    },
+    "Silver Space Suit": {
+      "count": 491,
+      "percentage": 5.70
+    }
+  },
+  "Suit Accents": {
+    "Purple Suit Trim": {
+      "count": 1869,
+      "percentage": 21.68
+    },
+    "Green Suit Trim": {
+      "count": 1849,
+      "percentage": 21.45
+    },
+    "Blue Suit Trim": {
+      "count": 1748,
+      "percentage": 20.28
+    },
+    "White Suit Trim": {
+      "count": 623,
+      "percentage": 7.23
+    },
+    "Black Suit Trim": {
+      "count": 640,
+      "percentage": 7.42
+    },
+    "Red Suit Trim": {
+      "count": 1882,
+      "percentage": 21.83
+    }
+  },
+  "Suit Accessories": {
+    "Left Antenna": {
+      "count": 1833,
+      "percentage": 21.26
+    },
+    "Watch": {
+      "count": 797,
+      "percentage": 9.25
+    },
+    "Rocket Boots": {
+      "count": 372,
+      "percentage": 4.32
+    },
+    "Rocket Pack": {
+      "count": 855,
+      "percentage": 9.92
+    },
+    "Antennas": {
+      "count": 1279,
+      "percentage": 14.84
+    },
+    "None": {
+      "count": 1556,
+      "percentage": 18.05
+    },
+    "Right Antenna": {
+      "count": 1919,
+      "percentage": 22.26
+    }
+  },
+  "Hand Accessories": {
+    "Green Scanner": {
+      "count": 950,
+      "percentage": 11.02
+    },
+    "Laser": {
+      "count": 1484,
+      "percentage": 17.22
+    },
+    "Blue Scanner": {
+      "count": 987,
+      "percentage": 11.45
+    },
+    "Phaser": {
+      "count": 1363,
+      "percentage": 15.81
+    },
+    "Lollipop": {
+      "count": 573,
+      "percentage": 6.65
+    },
+    "Candy Bar": {
+      "count": 428,
+      "percentage": 4.97
+    },
+    "Balloon": {
+      "count": 565,
+      "percentage": 6.55
+    },
+    "Soda": {
+      "count": 266,
+      "percentage": 3.09
+    },
+    "Red Scanner": {
+      "count": 949,
+      "percentage": 11.01
+    },
+    "Zapper": {
+      "count": 307,
+      "percentage": 3.56
+    },
+    "Banana": {
+      "count": 283,
+      "percentage": 3.28
+    },
+    "Ray Gun": {
+      "count": 318,
+      "percentage": 3.69
+    },
+    "Coffee Cup": {
+      "count": 138,
+      "percentage": 1.60
+    }
+  },
+  "Face": {
+    "Face Shade 4": {
+      "count": 1687,
+      "percentage": 19.57
+    },
+    "Face Shade 3": {
+      "count": 1680,
+      "percentage": 19.49
+    },
+    "Face Shade 1": {
+      "count": 1652,
+      "percentage": 19.16
+    },
+    "Face Shade 5": {
+      "count": 1684,
+      "percentage": 19.54
+    },
+    "Face Shade 2": {
+      "count": 1648,
+      "percentage": 19.12
+    },
+    "Alien": {
+      "count": 260,
+      "percentage": 3.02
+    }
+  },
+  "Face Extras": {
+    "None": {
+      "count": 7191,
+      "percentage": 83.42
+    },
+    "Freckles": {
+      "count": 1420,
+      "percentage": 16.47
+    }
+  },
+  "Eyes": {
+    "Red Eyes": {
+      "count": 1600,
+      "percentage": 18.56
+    },
+    "Black Eyes": {
+      "count": 1518,
+      "percentage": 17.61
+    },
+    "Blue Eyes": {
+      "count": 1534,
+      "percentage": 17.80
+    },
+    "Green Eyes": {
+      "count": 1523,
+      "percentage": 17.67
+    },
+    "Brown Eyes": {
+      "count": 1569,
+      "percentage": 18.20
+    },
+    "Sleepy Eyes": {
+      "count": 607,
+      "percentage": 7.04
+    },
+    "Alien Eyes": {
+      "count": 260,
+      "percentage": 3.02
+    }
+  },
+  "Glasses": {
+    "Glasses": {
+      "count": 1276,
+      "percentage": 14.80
+    },
+    "Green Visor": {
+      "count": 930,
+      "percentage": 10.79
+    },
+    "Green Monocle": {
+      "count": 625,
+      "percentage": 7.25
+    },
+    "Shades": {
+      "count": 1689,
+      "percentage": 19.59
+    },
+    "Sunnies": {
+      "count": 931,
+      "percentage": 10.80
+    },
+    "Red Visor": {
+      "count": 335,
+      "percentage": 3.89
+    },
+    "Blue Visor": {
+      "count": 939,
+      "percentage": 10.89
+    },
+    "Blue Monocle": {
+      "count": 658,
+      "percentage": 7.63
+    },
+    "None": {
+      "count": 923,
+      "percentage": 10.71
+    },
+    "Red Monocle": {
+      "count": 305,
+      "percentage": 3.54
+    }
+  },
+  "Hair": {
+    "Blonde Hair": {
+      "count": 1050,
+      "percentage": 12.18
+    },
+    "Ginger Long Hair": {
+      "count": 968,
+      "percentage": 11.23
+    },
+    "Brown Hair": {
+      "count": 945,
+      "percentage": 10.96
+    },
+    "Blonde Long Hair": {
+      "count": 1003,
+      "percentage": 11.64
+    },
+    "Dark Brown Hair": {
+      "count": 917,
+      "percentage": 10.64
+    },
+    "Brown Long Hair": {
+      "count": 976,
+      "percentage": 11.32
+    },
+    "Black Hair": {
+      "count": 1093,
+      "percentage": 12.68
+    },
+    "Skin Head": {
+      "count": 385,
+      "percentage": 4.47
+    },
+    "Grey Hair": {
+      "count": 395,
+      "percentage": 4.58
+    },
+    "Bald": {
+      "count": 414,
+      "percentage": 4.80
+    },
+    "Mohawk": {
+      "count": 205,
+      "percentage": 2.38
+    }
+  }
+}
