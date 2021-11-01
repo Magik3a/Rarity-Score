@@ -59,10 +59,10 @@
                                 @metadata.PropertyType - @metadata.Name
                                 <span class="badge badge-secondary float-right">@metadata.Rarity %</span>
                                 <div class="progress ">
-                                    <div class="progress-bar" role="progressbar" style="width: @(metadata.Rarity)%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar bg-info" role="progressbar" style=" width: @(Math.Abs(metadata.Rarity - 100))%" aria-valuenow="@(Math.Abs(metadata.Rarity - 100))" aria-valuemin="0" aria-valuemax="100">
                                         @metadata.TotalCount
                                     </div>
-                                    <div class="progress-bar bg-info" role="progressbar" style="width: @(Math.Abs(metadata.Rarity - 100))%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: @(metadata.Rarity)%" aria-valuenow="@metadata.Rarity" aria-valuemin="0" aria-valuemax="100">
                                         @metadata.Count
                                     </div>
                                 </div>
