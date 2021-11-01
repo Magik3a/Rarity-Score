@@ -10,8 +10,8 @@
     <ValidationSummary />
     <p>
         <label>
-            Wallet Address:
-            <InputText @bind-Value="checkRarityFormModel.WalletAddress" />
+            Terranauts (TRNT) Contract Address:
+            <InputText disabled @bind-Value="checkRarityFormModel.WalletAddress" />
         </label>
     </p>
     <p>
@@ -60,7 +60,7 @@
     </div></div>
 }
 @code {
-    private CheckRarityFormModel checkRarityFormModel = new() {  };
+    private CheckRarityFormModel checkRarityFormModel = new() { WalletAddress = "terra1whyze49j9d0672pleaflk0wfufxrh8l0at2h8q" };
     private TerraContractResult terraContractResult;
     private bool buttonDisables;
 
