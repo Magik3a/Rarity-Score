@@ -55,8 +55,19 @@
                         Properties
                         @foreach (var metadata in mappedMetadataResult.Metadata)
                         {
-                            <li class="list-group-item">@metadata.PropertyType - @metadata.Name <span class="badge badge-secondary">@metadata.Rarity %</span></li>
-                            //  <li class="list-group-item">@metadata.First().Value - @metadata.Last().Value <span class="badge badge-secondary">New</span></li>
+                            <li class="list-group-item">
+                                @metadata.PropertyType - @metadata.Name
+                                <span class="badge badge-secondary float-right">@metadata.Rarity %</span>
+                                <div class="progress ">
+                                    <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">
+                                        @metadata.TotalCount
+                                    </div>
+                                    <div class="progress-bar bg-info" role="progressbar" style="width: 25%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                        @metadata.Count
+                                    </div>
+                                </div>
+                            </li>
+
                         }
                     </ul>
                 </div>
@@ -95,6 +106,7 @@
             mappedMetadataResult = MetadataResult.MapRarity(mappedMetadataResult, attributes);
 
             averagePercent = mappedMetadataResult.Metadata.Select(av => av.Rarity).Average();
+
         }
         finally
         {

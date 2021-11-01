@@ -11,6 +11,9 @@ namespace RarityScore.Models
         public string PropertyType { get; set; }
         public string Name { get; set; }
         public decimal Rarity { get; set; } = 0;
+        public decimal Count { get; set; } = 0;
+        public decimal TotalCount { get; set; } = 0;
+
     }
     public class MetadataResult
     {
@@ -42,6 +45,9 @@ namespace RarityScore.Models
                 var propertyTypes = attributes.FirstOrDefault(a => a.Name == data.PropertyType);
 
                 data.Rarity = propertyTypes?.MetadataAttributes.First(s => s.TraitName == data.Name).Rarity??0;
+                data.Count = propertyTypes?.MetadataAttributes.First(s => s.TraitName == data.Name).Count ?? 0;
+
+                data.TotalCount = propertyTypes?.MetadataAttributes.Select(s => s.Count).Sum()??0;
             }
 
             return metadataList;
