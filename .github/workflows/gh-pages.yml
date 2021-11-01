@@ -24,8 +24,8 @@ jobs:
       run: dotnet publish RarityScore/RarityScore.csproj -c Release -o release --nologo /p:AssemblyVersion=1.0.0.${{ github.run_number }} /p:Version=1.0.0.${{ github.run_number }}
     
     # changes the base-tag in index.html from '/' to 'CoinGarden-World' to match GitHub Pages repository subdirectory
-    - name: Change base-tag in index.html from / to Rarirty-Score
-      run: sed -i 's/<base href="\/" \/>/<base href="\/Rarirty-Score\/" \/>/g' release/wwwroot/index.html
+    - name: Change base-tag in index.html from / to Rarity-Score
+      run: sed -i 's/<base href="\/" \/>/<base href="\/Rarity-Score\/" \/>/g' release/wwwroot/index.html
 
     # copy index.html to 404.html to serve the same file when a file is not found
     - name: copy index.html to 404.html
