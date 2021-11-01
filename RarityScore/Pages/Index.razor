@@ -1,5 +1,6 @@
 ﻿@page "/"
 @using Microsoft.Extensions.Logging
+@using System.Globalization
 @inject ILogger<Index> Logger
 @inject HttpClient Http
 
@@ -39,7 +40,7 @@
                     
                     <img class="img-thumbnail" src="https://cloudflare-ipfs.com/ipfs/@terraContractResult.result?.image.Split('/').Last()" />
                     <div class="alert alert-dark" role="alert">
-                        <strong>Average Rarity: </strong>  00.00%
+                        <strong>Average Rarity: </strong>  @(averagePercent.ToString("F2", CultureInfo.InvariantCulture) + "%" )
                     </div>
                     
 
@@ -72,6 +73,7 @@
 
     private MetadataResult mappedMetadataResult = new();
 
+    private decimal averagePercent = 0;
     private async void HandleValidSubmit()
     {
         Logger.LogInformation("HandleValidSubmit called");
@@ -92,6 +94,7 @@
             // Add rarity to the list
             mappedMetadataResult = MetadataResult.MapRarity(mappedMetadataResult, attributes);
 
+            averagePercent = mappedMetadataResult.Metadata.Select(av => av.Rarity).Average();
         }
         finally
         {
