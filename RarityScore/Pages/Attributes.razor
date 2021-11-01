@@ -7,18 +7,31 @@
 <div class="row">
 @foreach (var attributesResult in attributes)
 {
-    <div class="card bg-light col-lg-3">
+    <div class="card bg-light col-md-4">
         <div class="card-body">
             <h3 class="card-title"> @attributesResult.Name</h3>
            
-            
-            <ul class="list-group">
-                @foreach (var metadata in attributesResult.MetadataAttributes)
-                {
-                    
-                    <li class="list-group-item">@metadata.TraitName - @metadata.Rarity - @metadata.Count</li>
-                }
-            </ul>
+            <table class="table table-sm">
+                <thead>
+                <tr>
+                    <th>Trait</th>
+                    <th>Rarity</th>
+                    <th>Items</th>
+                </tr>
+                </thead>
+                <tbody>
+               
+                    @foreach (var metadata in attributesResult.MetadataAttributes.OrderBy(a => a.Rarity))
+                    {
+                        <tr>
+                        <th scope="row">@metadata.TraitName</th>
+                        <td>@metadata.Rarity%</td>
+                        <td>@metadata.Count</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
         </div>
     </div>
 }
