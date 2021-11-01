@@ -1,6 +1,10 @@
 ﻿self.assetsManifest = {
   "assets": [
     {
+      "hash": "sha256-47DEQpj8HBSa+\/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=",
+      "url": ".nojekyll"
+    },
+    {
       "hash": "sha256-aG6Cf\/CSY82+g++P4MtfSDJ\/di6MsU\/BDKGCkBzsI8Y=",
       "url": "attributes\/attributes.json"
     },
@@ -169,7 +173,7 @@
       "url": "_framework\/System.IO.Pipelines.dll"
     },
     {
-      "hash": "sha256-HUk9tybV8h4b3zz\/SI\/q+P3RthDqLbzdMoe1xeJhV6U=",
+      "hash": "sha256-Q95M0nc9IK6Ay\/qnnGqRr90kUiJLihMMJQZisUNSq1E=",
       "url": "_framework\/RarityScore.dll"
     },
     {
@@ -269,7 +273,7 @@
       "url": "_framework\/System.Private.CoreLib.dll"
     },
     {
-      "hash": "sha256-4S6EmOnx3l4YRQb4uMssfBCzs4VHZOTdYwvDoiG1wKY=",
+      "hash": "sha256-gjpUoSLCfYVC0pTzmn8FbM7chM+5pr8j\/joCyswRdIw=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -277,5 +281,5 @@
       "url": "_framework\/blazor.webassembly.js"
     }
   ],
-  "version": "TbTdbcMW"
+  "version": "LOLkXRt2"
 };
