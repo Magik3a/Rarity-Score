@@ -67,14 +67,18 @@
                         {
                             <li class="list-group-item align-content-center">
                                 <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <span class="badge badge-light">@metadata.PropertyType</span>
                                 </div>
                                 <div class="col-md-4 text-center">
                                     <span class="">@metadata.Name</span>
                                 </div>
-                                    <div class="col-md-4  float-right text-right">
-                                        <span class="badge badge-secondary">@metadata.Rarity %</span>
+                                    <div class="col-md-5  float-right text-right">
+                                        <span class="badge badge-secondary float-right ">@metadata.Rarity %</span>
+
+                                        <span class="badge badge-warning float-right">Floor price for trait: 
+                                            @(metadata.FloorPrice.ToString("F2", CultureInfo.InvariantCulture) + " Luna" )
+                                            </span>
                                     </div>
                                 <div class="col-md-12">
 
@@ -136,6 +140,41 @@
         return Task.CompletedTask;
     }
 
+    public async Task<decimal> GetTraitsFloorPrice()
+    {
+        
+        
+
+        foreach (var mappedMetadata in mappedMetadataResult.Metadata)
+        {
+            // Get floor price per trait from randomearth.io
+            var sortString = "sort=price.asc";
+            await Task.Delay(500);
+
+            var randomearthUrl = $"https://randomearth.io/api/items?collection_addr={checkRarityFormModel.WalletAddress}&{sortString}&page=1&Face_={mappedMetadata.Name}";
+
+            HttpClient httpClient = Http;
+            try
+            {
+                
+                var marketResult = await httpClient.GetFromJsonAsync<RandomearthModels>(randomearthUrl);
+                if (marketResult != null && marketResult.Items.Any())
+                {
+                    var price = marketResult.Items.FirstOrDefault()?.Price;
+                    if (price != null) mappedMetadata.FloorPrice = (decimal) price/100000;
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.LogInformation(e.Message);
+            }
+
+            this.StateHasChanged();
+        }
+        return 0;
+
+    }
+
     private async void HandleValidSubmit()
     {
         Logger.LogInformation("HandleValidSubmit called");
@@ -159,10 +198,13 @@
             averagePercent = mappedMetadataResult.Metadata.Select(av => av.Rarity).Average();
             minimumPercent = mappedMetadataResult.Metadata.Where(av => av.Rarity > 0).Select(av => av.Rarity).Min();
 
+            // Max and Min for rarest nft trait 
             var minimumRarityIndex = mappedMetadataResult.Metadata.Where(av => av.Rarity > 0).Min(av => av.Rarity);
             minimumCount = mappedMetadataResult.Metadata.Where(av => av.Rarity == minimumRarityIndex).Select(av => av.Count).FirstOrDefault();
-
             maximumCount = mappedMetadataResult.Metadata.Where(av => av.Rarity == minimumRarityIndex).Select(av => av.TotalCount).FirstOrDefault();
+
+            
+            Task.Run(() => GetTraitsFloorPrice());
         }
         finally
         {

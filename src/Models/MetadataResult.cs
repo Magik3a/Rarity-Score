@@ -13,6 +13,7 @@ namespace RarityScore.Models
         public decimal Rarity { get; set; } = 0;
         public decimal Count { get; set; } = 0;
         public decimal TotalCount { get; set; } = 0;
+        public decimal FloorPrice { get; set; } = 0;
 
     }
     public class MetadataResult
