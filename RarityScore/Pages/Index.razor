@@ -10,18 +10,23 @@
     <DataAnnotationsValidator />
     <ValidationSummary />
     <div class="form-group">
-        <label for="contract">Terranauts (TRNT) Contract Address:</label>
+        <label for="contract">NFT Contract Address:</label>
 
         
-        <InputText id="contract" class="form-control" disabled @bind-Value="checkRarityFormModel.WalletAddress"/>
-  
+        @*<InputText id="contract" class="form-control" disabled @bind-Value="checkRarityFormModel.WalletAddress"/>*@
+        <InputSelect class="" @bind-Value="contractAddress" bind-Value:event="@ContractAddressChanged()">
+            @foreach (var contract in contractAddresses)
+            {
+                <option class="">@contract.Key</option>
+            }
+        </InputSelect>
     </div>
     <div class="form-group">
     <label for="terranautId">Terranaut Id:</label>
  
         <InputNumber id="terranautId" @bind-Value="checkRarityFormModel.TerranautId" />
   
-
+         
     
     </div>
     <button class="btn btn-info" disabled="@buttonDisables" type="submit">Submit</button>
@@ -36,7 +41,7 @@
             <h3 class="card-title">Rarity score</h3>
             
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-lg-4">
                     
                     <img class="img-thumbnail" src="https://cloudflare-ipfs.com/ipfs/@terraContractResult.result?.image.Split('/').Last()" />
                     <div class="alert alert-dark" role="alert">
@@ -45,7 +50,7 @@
                     
 
                 </div>
-                <div class="col-md-8">
+                <div class="col-lg-8">
                     <ul class="list-group">
                         Owner Address:
 
@@ -58,7 +63,7 @@
                             <li class="list-group-item align-content-center">
                                 <div class="row">
                                 <div class="col-md-4">
-                                    <span class="">@metadata.PropertyType</span>
+                                    <span class="badge badge-light">@metadata.PropertyType</span>
                                 </div>
                                 <div class="col-md-4 text-center">
                                     <span class="">@metadata.Name</span>
@@ -89,7 +94,11 @@
     </div></div>
 }
 @code {
-    private CheckRarityFormModel checkRarityFormModel = new() { WalletAddress = "terra1whyze49j9d0672pleaflk0wfufxrh8l0at2h8q" };
+    private Dictionary<string, string> contractAddresses = new();
+    private string contractAddress ;
+
+    private CheckRarityFormModel checkRarityFormModel = new();
+
     private TerraContractResult terraContractResult;
     private bool buttonDisables;
 
@@ -98,6 +107,27 @@
     private MetadataResult mappedMetadataResult = new();
 
     private decimal averagePercent = 0;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        var jsonContracts = await Http.GetFromJsonAsync<Dictionary<string, string>>("contracts/nftcontracts.json");
+        foreach (var jsonContract in jsonContracts)
+        {
+            contractAddresses.Add(jsonContract.Key, jsonContract.Value);
+        }
+        contractAddress = jsonContracts.First().Key;
+        checkRarityFormModel.WalletAddress =jsonContracts.First().Value;
+    }
+
+    private Task ContractAddressChanged()
+    {
+        Logger.LogInformation($"Contract Address Changed: {contractAddress}");
+        if(!string.IsNullOrEmpty(contractAddress))
+        checkRarityFormModel.WalletAddress = contractAddresses[contractAddress];
+
+        return Task.CompletedTask;
+    }
+
     private async void HandleValidSubmit()
     {
         Logger.LogInformation("HandleValidSubmit called");
@@ -110,7 +140,7 @@
             // Get contract 
             metadataResult = System.Text.Json.JsonSerializer.Deserialize<List<Dictionary<string, string>>>(terraContractResult.result.metadata);
             mappedMetadataResult = MetadataResult.MapMetadata(metadataResult);
-
+             
             // Get all attributes
             var jsonAttributes = await Http.GetFromJsonAsync<Dictionary<string, Dictionary<string, Dictionary<string, decimal>>>>("attributes/attributes.json");
             var attributes = AttributesResult.MapAttributes(jsonAttributes);
