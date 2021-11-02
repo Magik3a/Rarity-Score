@@ -18,6 +18,7 @@ namespace RarityScore.Models
     }
     public class MetadataResult
     {
+        public string ImageUrl { get; set; }
 
         public decimal AverageTraitsPercent { get; set; } = 0;
         public decimal RarestTraitPercent { get; set; } = 0;
@@ -27,7 +28,7 @@ namespace RarityScore.Models
         public decimal TotalRarityScore { get; set; }
         public List<MetadataProperty> Metadata { get; set; } = new();
 
-        public static MetadataResult MapMetadata(List<Dictionary<string, string>> jsonMetadata)
+        private static MetadataResult MapMetadata(List<Dictionary<string, string>> jsonMetadata)
         {
             var metadataList = new MetadataResult();
 
@@ -44,10 +45,25 @@ namespace RarityScore.Models
             return metadataList;
         }
 
+        public static MetadataResult MapTerraResult(TerraContractResult terraContractResult)
+        {
+            var metadataList = new MetadataResult();
+
+            if (terraContractResult.result != null)
+            {
+
+                var paramsDeserialized = System.Text.Json.JsonSerializer.Deserialize<List<Dictionary<string, string>>>(terraContractResult.result.metadata);
+                metadataList = MapMetadata(paramsDeserialized);
+            }
+
+            metadataList.ImageUrl = "https://cloudflare-ipfs.com/ipfs/" + terraContractResult.result.image.Split('/').Last();
+            return metadataList;
+        }
+
         public static MetadataResult MapRarity(MetadataResult metadata, List<AttributesResult> attributes)
         {
             var metadataList = new MetadataResult();
-            metadataList.Metadata = metadata.Metadata;
+            metadataList = metadata;
 
             decimal totalTraitsScore = 0;
             foreach (var data in metadata.Metadata)
@@ -64,15 +80,19 @@ namespace RarityScore.Models
                     totalTraitsScore += 1 / (data.Count / data.TotalCount);
             }
 
-            var minimumRarityIndex = metadataList.Metadata.Where(av => av.Rarity > 0).Min(av => av.Rarity);
-            var rarestTrait = metadataList.Metadata.FirstOrDefault(av => av.Rarity == minimumRarityIndex);
-            if (rarestTrait != null)
+            if (metadataList.Metadata.Any(av => av.Rarity > 0))
             {
-                metadataList.RarestTraitCount = rarestTrait.Count;
-                metadataList.RarestTraitTotalCount = rarestTrait.TotalCount;
-                metadataList.RarestTraitPercent = rarestTrait.Rarity;
-                metadataList.RarestTraitName = rarestTrait.Name;
+                var minimumRarityIndex = metadataList.Metadata.Where(av => av.Rarity > 0).Min(av => av.Rarity);
+                var rarestTrait = metadataList.Metadata.FirstOrDefault(av => av.Rarity == minimumRarityIndex);
+                if (rarestTrait != null)
+                {
+                    metadataList.RarestTraitCount = rarestTrait.Count;
+                    metadataList.RarestTraitTotalCount = rarestTrait.TotalCount;
+                    metadataList.RarestTraitPercent = rarestTrait.Rarity;
+                    metadataList.RarestTraitName = rarestTrait.Name;
+                }
             }
+
             metadataList.AverageTraitsPercent = metadataList.Metadata.Select(av => av.Rarity).Average();
             metadataList.TotalRarityScore = totalTraitsScore;
 
