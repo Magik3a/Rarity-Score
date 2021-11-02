@@ -19,11 +19,11 @@ namespace RarityScore.Models
     public class MetadataResult
     {
 
-        public decimal AverageTraitsPercent { get; set; }
-        public decimal RarestTraitPercent { get; set; }
-        public decimal RarestTraitCount { get; set; }
-        public decimal RarestTraitTotalCount { get; set; }
-
+        public decimal AverageTraitsPercent { get; set; } = 0;
+        public decimal RarestTraitPercent { get; set; } = 0;
+        public decimal RarestTraitCount { get; set; } = 0;
+        public decimal RarestTraitTotalCount { get; set; } = 0;
+        public string RarestTraitName { get; set; }
         public decimal TotalRarityScore { get; set; }
         public List<MetadataProperty> Metadata { get; set; } = new();
 
@@ -64,7 +64,18 @@ namespace RarityScore.Models
                     totalTraitsScore += 1 / (data.Count / data.TotalCount);
             }
 
+            var minimumRarityIndex = metadataList.Metadata.Where(av => av.Rarity > 0).Min(av => av.Rarity);
+            var rarestTrait = metadataList.Metadata.FirstOrDefault(av => av.Rarity == minimumRarityIndex);
+            if (rarestTrait != null)
+            {
+                metadataList.RarestTraitCount = rarestTrait.Count;
+                metadataList.RarestTraitTotalCount = rarestTrait.TotalCount;
+                metadataList.RarestTraitPercent = rarestTrait.Rarity;
+                metadataList.RarestTraitName = rarestTrait.Name;
+            }
+            metadataList.AverageTraitsPercent = metadataList.Metadata.Select(av => av.Rarity).Average();
             metadataList.TotalRarityScore = totalTraitsScore;
+
             return metadataList;
         }
     }

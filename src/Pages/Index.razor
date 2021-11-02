@@ -46,10 +46,12 @@
                     <img class="img-thumbnail" src="https://cloudflare-ipfs.com/ipfs/@terraContractResult.result?.image.Split('/').Last()" />
 
                     <div class="alert alert-dark" role="alert" style="margin-top:20px;">
-                        <strong>Average Rarity: </strong>  @(averagePercent.ToString("F2", CultureInfo.InvariantCulture) + "%" )
+                        <strong>Average Rarity: </strong>  @(mappedMetadataResult.AverageTraitsPercent.ToString("F2", CultureInfo.InvariantCulture) + "%" )
                     </div>
                     <div class="alert alert-info" role="alert">
-                        <strong>Rarest Trait: </strong>  @(minimumPercent.ToString("F2", CultureInfo.InvariantCulture) + "%" + $" ({minimumCount}/{maximumCount})" )
+                        <strong>Rarest Trait: </strong>  
+                        <br />
+                        @mappedMetadataResult.RarestTraitName -  @(mappedMetadataResult.RarestTraitPercent.ToString("F2", CultureInfo.InvariantCulture) + "%" + $" ({mappedMetadataResult.RarestTraitCount}/{mappedMetadataResult.RarestTraitTotalCount})" )
                     </div>
                     <div class="alert alert-success" role="alert">
                         <strong>NFT Score: @(mappedMetadataResult.TotalRarityScore.ToString("F2", CultureInfo.InvariantCulture))</strong>
@@ -112,14 +114,7 @@
     private TerraContractResult terraContractResult;
     private bool buttonDisables;
 
-    private List<Dictionary<string, string>> metadataResult;
-
     private MetadataResult mappedMetadataResult = new();
-
-    private decimal averagePercent = 0;
-    private decimal minimumPercent = 0;
-    private decimal minimumCount = 0;
-    private decimal maximumCount = 0;
     
     protected override async Task OnInitializedAsync()
     {
@@ -143,15 +138,10 @@
 
     public async Task<decimal> GetTraitsFloorPrice()
     {
-        
-        
-
         foreach (var mappedMetadata in mappedMetadataResult.Metadata)
         {
             // Get floor price per trait from randomearth.io
             var sortString = "sort=price.asc";
-            await Task.Delay(500);
-
             var randomearthUrl = $"https://randomearth.io/api/items?collection_addr={checkRarityFormModel.WalletAddress}&{sortString}&page=1&Face_={mappedMetadata.Name}";
 
             HttpClient httpClient = Http;
@@ -186,7 +176,7 @@
 
             terraContractResult = await Http.GetFromJsonAsync<TerraContractResult>(terraUrl);
             // Get contract 
-            metadataResult = System.Text.Json.JsonSerializer.Deserialize<List<Dictionary<string, string>>>(terraContractResult.result.metadata);
+            var metadataResult = System.Text.Json.JsonSerializer.Deserialize<List<Dictionary<string, string>>>(terraContractResult.result.metadata);
             mappedMetadataResult = MetadataResult.MapMetadata(metadataResult);
              
             // Get all attributes
@@ -196,15 +186,6 @@
             // Add rarity to the list
             mappedMetadataResult = MetadataResult.MapRarity(mappedMetadataResult, attributes);
 
-            averagePercent = mappedMetadataResult.Metadata.Select(av => av.Rarity).Average();
-            minimumPercent = mappedMetadataResult.Metadata.Where(av => av.Rarity > 0).Select(av => av.Rarity).Min();
-
-            // Max and Min for rarest nft trait 
-            var minimumRarityIndex = mappedMetadataResult.Metadata.Where(av => av.Rarity > 0).Min(av => av.Rarity);
-            minimumCount = mappedMetadataResult.Metadata.Where(av => av.Rarity == minimumRarityIndex).Select(av => av.Count).FirstOrDefault();
-            maximumCount = mappedMetadataResult.Metadata.Where(av => av.Rarity == minimumRarityIndex).Select(av => av.TotalCount).FirstOrDefault();
-
-            
             Task.Run(() => GetTraitsFloorPrice());
         }
         finally
