@@ -51,7 +51,9 @@
                     <div class="alert alert-info" role="alert">
                         <strong>Minimum Rarity: </strong>  @(minimumPercent.ToString("F2", CultureInfo.InvariantCulture) + "%" )
                     </div>
-
+                    <div class="alert alert-success" role="alert">
+                        <strong>NFT Rarity: </strong>  @( $"{minimumCount}/{maximumCount}" )
+                    </div>
                 </div>
                 <div class="col-lg-8">
                     <ul class="list-group">
@@ -111,6 +113,8 @@
 
     private decimal averagePercent = 0;
     private decimal minimumPercent = 0;
+    private decimal minimumCount = 0;
+    private decimal maximumCount = 0;
     
     protected override async Task OnInitializedAsync()
     {
@@ -155,6 +159,10 @@
             averagePercent = mappedMetadataResult.Metadata.Select(av => av.Rarity).Average();
             minimumPercent = mappedMetadataResult.Metadata.Where(av => av.Rarity > 0).Select(av => av.Rarity).Min();
 
+            var minimumRarityIndex = mappedMetadataResult.Metadata.Where(av => av.Rarity > 0).Min(av => av.Rarity);
+            minimumCount = mappedMetadataResult.Metadata.Where(av => av.Rarity == minimumRarityIndex).Select(av => av.Count).FirstOrDefault();
+
+            maximumCount = mappedMetadataResult.Metadata.Where(av => av.Rarity == minimumRarityIndex).Select(av => av.TotalCount).FirstOrDefault();
         }
         finally
         {
