@@ -9,6 +9,10 @@
       "url": "attributes\/attributes.json"
     },
     {
+      "hash": "sha256-vGc2jBpW0JBgyfx9OGTW3Y+srn8PfMpIg2ItFfqLBDA=",
+      "url": "contracts\/nftcontracts.json"
+    },
+    {
       "hash": "sha256-SO\/fuIIWUxoIu1OABrOpK5n\/AvzxJcg+0H3PT1eutAE=",
       "url": "css\/app.css"
     },
@@ -117,7 +121,7 @@
       "url": "_framework\/Microsoft.AspNetCore.Components.Forms.dll"
     },
     {
-      "hash": "sha256-EDG\/QS1znbCspJPOYqZdSwSGQ+o\/tylrK3Aha7BexhY=",
+      "hash": "sha256-s8JUcRuyntSXOezQDWV5wpohFXozfFOXkV0gTOT3KSA=",
       "url": "_framework\/Microsoft.AspNetCore.Components.Web.dll"
     },
     {
@@ -173,7 +177,7 @@
       "url": "_framework\/System.IO.Pipelines.dll"
     },
     {
-      "hash": "sha256-dGEM9+L+AZHiIMgBh\/GZpp2YqspZYsEpffLh7yEVcFY=",
+      "hash": "sha256-GZfKsd1+nZcV3Mt+nqP\/Rep3GE8WAXIhAQzhoKxo0lE=",
       "url": "_framework\/RarityScore.dll"
     },
     {
@@ -273,7 +277,7 @@
       "url": "_framework\/System.Private.CoreLib.dll"
     },
     {
-      "hash": "sha256-fJWa2xyvUm7rgiX9B66Q+3tVfYpYs9VVluk9PlUm4Xo=",
+      "hash": "sha256-0pTOyqXJaEKUXwHhzsBxMPwmowdS46UuC7S4pESMBsA=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -281,5 +285,5 @@
       "url": "_framework\/blazor.webassembly.js"
     }
   ],
-  "version": "N5guhyGt"
+  "version": "3ORdu0SH"
 };
