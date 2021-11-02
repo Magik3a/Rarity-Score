@@ -44,10 +44,13 @@
                 <div class="col-lg-4">
                     
                     <img class="img-thumbnail" src="https://cloudflare-ipfs.com/ipfs/@terraContractResult.result?.image.Split('/').Last()" />
-                    <div class="alert alert-dark" role="alert">
+
+                    <div class="alert alert-dark" role="alert" style="margin-top:20px;">
                         <strong>Average Rarity: </strong>  @(averagePercent.ToString("F2", CultureInfo.InvariantCulture) + "%" )
                     </div>
-                    
+                    <div class="alert alert-info" role="alert">
+                        <strong>Minimum Rarity: </strong>  @(minimumPercent.ToString("F2", CultureInfo.InvariantCulture) + "%" )
+                    </div>
 
                 </div>
                 <div class="col-lg-8">
@@ -107,6 +110,7 @@
     private MetadataResult mappedMetadataResult = new();
 
     private decimal averagePercent = 0;
+    private decimal minimumPercent = 0;
     
     protected override async Task OnInitializedAsync()
     {
@@ -149,6 +153,7 @@
             mappedMetadataResult = MetadataResult.MapRarity(mappedMetadataResult, attributes);
 
             averagePercent = mappedMetadataResult.Metadata.Select(av => av.Rarity).Average();
+            minimumPercent = mappedMetadataResult.Metadata.Where(av => av.Rarity > 0).Select(av => av.Rarity).Min();
 
         }
         finally
