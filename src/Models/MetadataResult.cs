@@ -60,7 +60,7 @@ namespace RarityScore.Models
 
                 data.TotalCount = propertyTypes?.MetadataAttributes.Select(s => s.Count).Sum()??0;
 
-                if(data.TotalCount > 0)
+                if(data.TotalCount > 0 && data.Count > 0)
                     totalTraitsScore += 1 / (data.Count / data.TotalCount);
             }
 
