@@ -1,133 +1,155 @@
 ﻿@page "/"
 @using Microsoft.Extensions.Logging
 @using System.Globalization
+@using RarityScore.Configuration
 @inject ILogger<Index> Logger
 @inject HttpClient Http
+<div class="row"><h1>Check Rarity</h1></div>
 
-<h1>Check Rarity</h1>
+<hr />
+<div class="row">
+    <div class="col-lg-4">
+        <a href="@contractSite" target="_blank" class="float-right">
+            <img style="max-height: 200px" class=" img-thumbnail  " src="@contractPicture"/>
+        </a>
+    </div>
+    <EditForm style="margin:10px 0 10px 0" class="col-lg-4" Model="@checkRarityFormModel" OnValidSubmit="@HandleValidSubmit" >
+        <DataAnnotationsValidator />
+        <ValidationSummary />
 
-<EditForm Model="@checkRarityFormModel" OnValidSubmit="@HandleValidSubmit" >
-    <DataAnnotationsValidator />
-    <ValidationSummary />
-    <div class="form-group">
-        <label for="contract">NFT Contract Address:</label>
+        <div class="form-group">
+            <label for="contract">NFT Contract Address:</label>
 
         
-        @*<InputText id="contract" class="form-control" disabled @bind-Value="checkRarityFormModel.WalletAddress"/>*@
-        <InputSelect class="" @bind-Value="contractAddress" bind-Value:event="@ContractAddressChanged()">
-            @foreach (var contract in contractAddresses)
-            {
-                <option class="">@contract.Key</option>
-            }
-        </InputSelect>
+            @*<InputText id="contract" class="form-control" disabled @bind-Value="checkRarityFormModel.WalletAddress"/>*@
+            <InputSelect style="width:100%" class="" @bind-Value="contractName" bind-Value:event="@ContractAddressChanged()">
+                @foreach (var contract in contractAddresses)
+                {
+                    <option class="">@contract.Name</option>
+                }
+            </InputSelect>
+        </div>
+        <div class="form-group">
+            <label for="terranautId">Terranaut Id:</label>
+            <br />
+            <InputNumber id="terranautId" @bind-Value="checkRarityFormModel.TerranautId" />
+        </div>
+        <button class="btn btn-info" disabled="@buttonDisables" type="submit">Submit</button>
+    </EditForm>
+    <div class="col-lg-4">
+        <a href="@contractSite" target="_blank" class="float-left">
+            <img style="max-height: 200px" class=" img-thumbnail  " src="@contractPicture"/>
+        </a>
     </div>
-    <div class="form-group">
-    <label for="terranautId">Terranaut Id:</label>
- 
-        <InputNumber id="terranautId" @bind-Value="checkRarityFormModel.TerranautId" />
-  
-         
     
-    </div>
-    <button class="btn btn-info" disabled="@buttonDisables" type="submit">Submit</button>
-</EditForm>
-
+</div>
 <hr />
 @if (mappedMetadataResult != null)
 {
     <div class="row">
-    <div class="card bg-light col-lg-12" style="width: 22rem">
-        <div class="card-body">
-            <h3 class="card-title">Rarity score</h3>
+        <div class="card bg-light col-lg-12" style="width: 22rem">
+            <div class="card-body">
+                <h3 class="card-title">Rarity score</h3>
             
-            <div class="row">
-                <div class="col-lg-4">
+                <div class="row">
+                    <div class="col-lg-4">
                     
-                    <img class="img-thumbnail" src="@(mappedMetadataResult.ImageUrl)" />
+                        <img class="img-thumbnail" src="@(mappedMetadataResult.ImageUrl)" />
 
-                    <div class="alert alert-dark" role="alert" style="margin-top:20px;">
-                        <strong>Average Rarity: </strong>  @(mappedMetadataResult.AverageTraitsPercent.ToString("F2", CultureInfo.InvariantCulture) + "%" )
-                    </div>
-                    <div class="alert alert-info" role="alert">
-                        <strong>Rarest Trait: </strong>  
-                        <br />
-                        @mappedMetadataResult.RarestTraitName -  @(mappedMetadataResult.RarestTraitPercent.ToString("F2", CultureInfo.InvariantCulture) + "%" + $" ({mappedMetadataResult.RarestTraitCount}/{mappedMetadataResult.RarestTraitTotalCount})" )
-                    </div>
-                    <div class="alert alert-success" role="alert">
-                        <strong>NFT Score: @(mappedMetadataResult.TotalRarityScore.ToString("F2", CultureInfo.InvariantCulture))</strong>
+                        <div class="alert alert-dark" role="alert" style="margin-top:20px;">
+                            <strong>Average Rarity: </strong>  @(mappedMetadataResult.AverageTraitsPercent.ToString("F2", CultureInfo.InvariantCulture) + "%" )
+                        </div>
+                        <div class="alert alert-info" role="alert">
+                            <strong>Rarest Trait: </strong>  
+                            <br />
+                            @mappedMetadataResult.RarestTraitName -  @(mappedMetadataResult.RarestTraitPercent.ToString("F2", CultureInfo.InvariantCulture) + "%" + $" ({mappedMetadataResult.RarestTraitCount}/{mappedMetadataResult.RarestTraitTotalCount})" )
+                        </div>
+                        <div class="alert alert-success" role="alert">
+                            <strong>NFT Score: @(mappedMetadataResult.TotalRarityScore.ToString("F2", CultureInfo.InvariantCulture))</strong>
 
-                    </div>
-                </div>
-                <div class="col-lg-8">
-                    <ul class="list-group">
-                        Properties
-                        @foreach (var metadata in mappedMetadataResult.Metadata)
-                        {
-                            <li class="list-group-item align-content-center">
-                                <div class="row">
-                                <div class="col-md-3">
-                                    <span class="badge badge-light">@metadata.PropertyType</span>
-                                </div>
-                                <div class="col-md-4 text-center">
-                                    <span class="">@metadata.Name</span>
-                                </div>
-                                    <div class="col-md-5  float-right text-right">
-                                        <span class="badge badge-secondary float-right ">@metadata.Rarity %</span>
+                        </div>
+                        <div class="alert alert-warning" role="alert">
+                            <strong>Rank: TBA</strong>
 
-                                        <span class="badge badge-warning float-right">Floor price for trait: 
-                                            @(metadata.FloorPrice.ToString("F2", CultureInfo.InvariantCulture) + " Luna" )
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <ul class="list-group">
+                           <h4>Properties</h4> 
+                            @foreach (var metadata in mappedMetadataResult.Metadata)
+                            {
+                                <li class="list-group-item align-content-center">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <span class="badge badge-light">@metadata.PropertyType</span>
+                                        </div>
+                                        <div class="col-md-4 text-center">
+                                            <span class="text-primary font-weight-bolder">@metadata.Name</span>
+                                        </div>
+                                        <div class="col-md-5  float-right text-right">
+                                            <span class="badge badge-secondary float-right ">@metadata.Rarity %</span>
+
+                                            <span class="badge badge-warning float-right">Floor price for trait: 
+                                                @(metadata.FloorPrice.ToString("F2", CultureInfo.InvariantCulture) + " Luna" )
                                             </span>
-                                    </div>
-                                <div class="col-md-12">
-
-                                    <div class="progress ">
-                                        <div class="progress-bar bg-info" role="progressbar" style="width: @(Math.Abs(metadata.Rarity - 100))%" aria-valuenow="@(Math.Abs(metadata.Rarity - 100))" aria-valuemin="0" aria-valuemax="100">
-                                            @metadata.TotalCount
                                         </div>
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: @(metadata.Rarity)%" aria-valuenow="@metadata.Rarity" aria-valuemin="0" aria-valuemax="100">
-                                            @metadata.Count
+                                        <div class="col-md-12">
+
+                                            <div class="progress ">
+                                                <div class="progress-bar bg-info" role="progressbar" style="width: @(Math.Abs(metadata.Rarity - 100))%" aria-valuenow="@(Math.Abs(metadata.Rarity - 100))" aria-valuemin="0" aria-valuemax="100">
+                                                    @metadata.TotalCount
+                                                </div>
+                                                <div class="progress-bar bg-primary" role="progressbar" style="width: @(metadata.Rarity)%" aria-valuenow="@metadata.Rarity" aria-valuemin="0" aria-valuemax="100">
+                                                    @metadata.Count
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                </div>
 
-                            </li>
+                                </li>
 
-                        }
-                    </ul>
+                            }
+                        </ul>
+                    </div>
                 </div>
-                </div>
+            </div>
         </div>
-    </div></div>
+        </div>
 }
 @code {
-    private Dictionary<string, string> contractAddresses = new();
-    private string contractAddress ;
+    private List<ContractAddressesConfig> contractAddresses = new();
+    private string contractName ;
+    private string contractPicture ;
+    private string contractSite ;
 
     private CheckRarityFormModel checkRarityFormModel = new();
-
-    private bool buttonDisables;
-
     private MetadataResult mappedMetadataResult;
     
+    private bool buttonDisables;
+
     protected override async Task OnInitializedAsync()
     {
-        var jsonContracts = await Http.GetFromJsonAsync<Dictionary<string, string>>("contracts/nftcontracts.json");
-        foreach (var jsonContract in jsonContracts)
-        {
-            contractAddresses.Add(jsonContract.Key, jsonContract.Value);
-        }
-        contractAddress = jsonContracts.First().Key;
-        checkRarityFormModel.WalletAddress =jsonContracts.First().Value;
+        contractAddresses = await Http.GetFromJsonAsync<List<ContractAddressesConfig>>("contracts/nftcontracts.json");
+        
+        contractName = contractAddresses.First().Name;
+        contractPicture = contractAddresses.First().PictureUrl;
+        contractSite = contractAddresses.First().SiteUrl;
+
+        checkRarityFormModel.WalletAddress = contractAddresses.First().Address;
     }
 
     private Task ContractAddressChanged()
     {
-        Logger.LogInformation($"Contract Address Changed: {contractAddress}");
-        if (!string.IsNullOrEmpty(contractAddress))
+        if (contractAddresses != null && contractAddresses.Any())
         {
-            checkRarityFormModel.WalletAddress = contractAddresses[contractAddress];
-            mappedMetadataResult = null;
+            Logger.LogInformation($"Contract Changed: {contractName}");
+            if (!string.IsNullOrEmpty(contractName))
+            {
+                checkRarityFormModel.WalletAddress = contractAddresses.First(c => c.Name == contractName).Address;
+                contractPicture = contractAddresses.First(c => c.Name == contractName).PictureUrl;
+                contractSite = contractAddresses.First(c => c.Name == contractName).SiteUrl;
+                mappedMetadataResult = null;
+            }
         }
         return Task.CompletedTask;
     }

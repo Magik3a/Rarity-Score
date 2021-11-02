@@ -62,8 +62,6 @@ namespace RarityScore.Models
 
         public static MetadataResult MapRarity(MetadataResult metadata, List<AttributesResult> attributes)
         {
-            var metadataList = new MetadataResult();
-            metadataList = metadata;
 
             decimal totalTraitsScore = 0;
             foreach (var data in metadata.Metadata)
@@ -74,29 +72,29 @@ namespace RarityScore.Models
 
                 data.Count = propertyTypes?.MetadataAttributes.FirstOrDefault(s => s.TraitName == data.Name)?.Count ?? 0;
 
-                data.TotalCount = propertyTypes?.MetadataAttributes.Select(s => s.Count).Sum()??0;
+                data.TotalCount = (propertyTypes?.MetadataAttributes.Select(s => s.Count).Sum()??0) - data.Count;
 
                 if(data.TotalCount > 0 && data.Count > 0)
                     totalTraitsScore += 1 / (data.Count / data.TotalCount);
             }
 
-            if (metadataList.Metadata.Any(av => av.Rarity > 0))
+            if (metadata.Metadata.Any(av => av.Rarity > 0))
             {
-                var minimumRarityIndex = metadataList.Metadata.Where(av => av.Rarity > 0).Min(av => av.Rarity);
-                var rarestTrait = metadataList.Metadata.FirstOrDefault(av => av.Rarity == minimumRarityIndex);
+                var minimumRarityIndex = metadata.Metadata.Where(av => av.Rarity > 0).Min(av => av.Rarity);
+                var rarestTrait = metadata.Metadata.FirstOrDefault(av => av.Rarity == minimumRarityIndex);
                 if (rarestTrait != null)
                 {
-                    metadataList.RarestTraitCount = rarestTrait.Count;
-                    metadataList.RarestTraitTotalCount = rarestTrait.TotalCount;
-                    metadataList.RarestTraitPercent = rarestTrait.Rarity;
-                    metadataList.RarestTraitName = rarestTrait.Name;
+                    metadata.RarestTraitCount = rarestTrait.Count;
+                    metadata.RarestTraitTotalCount = rarestTrait.TotalCount;
+                    metadata.RarestTraitPercent = rarestTrait.Rarity;
+                    metadata.RarestTraitName = rarestTrait.Name;
                 }
             }
 
-            metadataList.AverageTraitsPercent = metadataList.Metadata.Select(av => av.Rarity).Average();
-            metadataList.TotalRarityScore = totalTraitsScore;
+            metadata.AverageTraitsPercent = metadata.Metadata.Select(av => av.Rarity).Average();
+            metadata.TotalRarityScore = totalTraitsScore;
 
-            return metadataList;
+            return metadata;
         }
     }
 }
