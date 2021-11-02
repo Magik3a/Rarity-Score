@@ -9,11 +9,15 @@
       "url": "attributes\/attributes.json"
     },
     {
-      "hash": "sha256-vGc2jBpW0JBgyfx9OGTW3Y+srn8PfMpIg2ItFfqLBDA=",
+      "hash": "sha256-Zq5Cz430HSMc+HpuQuifsR98tPzFfsD2cnGMPOYHcTE=",
       "url": "contracts\/nftcontracts.json"
     },
     {
-      "hash": "sha256-SO\/fuIIWUxoIu1OABrOpK5n\/AvzxJcg+0H3PT1eutAE=",
+      "hash": "sha256-1SWmGB+ZRuMTWpUC8ojhQe1RzrToZEz5vcu4097Dq10=",
+      "url": "contracts\/terranauts\/rarity_scores.json"
+    },
+    {
+      "hash": "sha256-pICyXswhnDUpFLtdwi+dk2KWsugnKfCkNDK1FPrMitU=",
       "url": "css\/app.css"
     },
     {
@@ -69,7 +73,11 @@
       "url": "icon-512.png"
     },
     {
-      "hash": "sha256-IADhlDmpPocJ4GG8Qhrz5xO3PoV3RTO2GCtHlvWzWpE=",
+      "hash": "sha256-l6Fm5tsxivXyRt8scdmOeDFYnt3H\/xDc4nqhbYrn62U=",
+      "url": "images\/terranauts_banner.jpg"
+    },
+    {
+      "hash": "sha256-ed5v\/uhq36morLtuNxfcvA0pCO0I\/XcREYIegcpAxh0=",
       "url": "index.html"
     },
     {
@@ -177,7 +185,7 @@
       "url": "_framework\/System.IO.Pipelines.dll"
     },
     {
-      "hash": "sha256-0NSf0I93CnWmecjpu25PvzhU+WULlK3kAkvrzuBsW5c=",
+      "hash": "sha256-qaYHi8tHwET7X9Tl6v\/jFrCCZh3qmFtagJRWMAAE9Ws=",
       "url": "_framework\/RarityScore.dll"
     },
     {
@@ -225,7 +233,7 @@
       "url": "_framework\/System.Linq.Expressions.dll"
     },
     {
-      "hash": "sha256-NNr8sUUoxUMRzwOzSyjy0X5LfucoT4zmn9OQIVL7xz8=",
+      "hash": "sha256-sbEyoMBdnmkwFpcF847CaobEpiZxMxEOAOfh8baZMSI=",
       "url": "_framework\/System.Linq.dll"
     },
     {
@@ -277,7 +285,7 @@
       "url": "_framework\/System.Private.CoreLib.dll"
     },
     {
-      "hash": "sha256-OB\/m5wuLs71grepKksyNKUCzwdsWaCuqOB3asSryJ3I=",
+      "hash": "sha256-yzTzW8aNGU3dgQCVitWGq5LHbKSSjfT67Go3GGXsTRM=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -285,5 +293,5 @@
       "url": "_framework\/blazor.webassembly.js"
     }
   ],
-  "version": "6EGS9am2"
+  "version": "KLoQukt1"
 };
