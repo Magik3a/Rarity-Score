@@ -49,10 +49,11 @@
                         <strong>Average Rarity: </strong>  @(averagePercent.ToString("F2", CultureInfo.InvariantCulture) + "%" )
                     </div>
                     <div class="alert alert-info" role="alert">
-                        <strong>Minimum Rarity: </strong>  @(minimumPercent.ToString("F2", CultureInfo.InvariantCulture) + "%" )
+                        <strong>Rarest Trait: </strong>  @(minimumPercent.ToString("F2", CultureInfo.InvariantCulture) + "%" + $" ({minimumCount}/{maximumCount})" )
                     </div>
                     <div class="alert alert-success" role="alert">
-                        <strong>NFT Rarity: </strong>  @( $"{minimumCount}/{maximumCount}" )
+                        <strong>NFT Score: @(mappedMetadataResult.TotalRarityScore.ToString("F2", CultureInfo.InvariantCulture))</strong>
+
                     </div>
                 </div>
                 <div class="col-lg-8">
