@@ -185,7 +185,7 @@
       "url": "_framework\/System.IO.Pipelines.dll"
     },
     {
-      "hash": "sha256-z7JGeEjQZDBymBEAt2gSbHyQVMdJ9\/x7PlOY2hFrCR0=",
+      "hash": "sha256-c3u7ALsqVaOyZSDzzJhiIS\/bl\/jSVQ+uZBTUCaYKyYE=",
       "url": "_framework\/RarityScore.dll"
     },
     {
@@ -285,7 +285,7 @@
       "url": "_framework\/System.Private.CoreLib.dll"
     },
     {
-      "hash": "sha256-0zm5rzaDsyOp24zdOb1FlXkyA6LNef3fM3ZiudyY0W8=",
+      "hash": "sha256-pNypGH5bh\/sOv0B5yb52bGDRAr7Dl44yyjh8Ge\/NJjM=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -293,5 +293,5 @@
       "url": "_framework\/blazor.webassembly.js"
     }
   ],
-  "version": "Q8QAa2x0"
+  "version": "hFOL1GZt"
 };
