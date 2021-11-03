@@ -69,7 +69,7 @@
 
                         </div>
                         <div class="alert alert-warning" role="alert">
-                            <strong>Rank: TBA</strong>
+                            <strong>Rank: @mappedMetadataResult.Rank / @mappedMetadataResult.MaximumRank</strong>
 
                         </div>
                     </div>
@@ -198,9 +198,12 @@
             // Get all attributes
             var jsonAttributes = await Http.GetFromJsonAsync<Dictionary<string, Dictionary<string, Dictionary<string, decimal>>>>("attributes/attributes.json");
             var attributes = AttributesResult.MapAttributes(jsonAttributes);
-
+            
+            //Add Rank 
+            var jsonRank = await Http.GetFromJsonAsync<List<TerranautRank>>("contracts/terranauts/rarity_scores.json");
             // Add rarity to the list
-            mappedMetadataResult = MetadataResult.MapRarity(mappedMetadataResult, attributes);
+            mappedMetadataResult = MetadataResult.MapRarity(checkRarityFormModel.TerranautId, mappedMetadataResult, attributes, jsonRank);
+            
 
             Task.Run(() => GetTraitsFloorPrice());
         }

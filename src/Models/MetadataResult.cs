@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using RarityScore.Configuration;
 
 namespace RarityScore.Models
 {
@@ -26,8 +29,10 @@ namespace RarityScore.Models
         public decimal RarestTraitTotalCount { get; set; } = 0;
         public string RarestTraitName { get; set; }
         public decimal TotalRarityScore { get; set; }
+        public decimal Rank { get; set; }
+        public decimal MaximumRank { get; set; }
         public List<MetadataProperty> Metadata { get; set; } = new();
-
+        
         private static MetadataResult MapMetadata(List<Dictionary<string, string>> jsonMetadata)
         {
             var metadataList = new MetadataResult();
@@ -44,7 +49,7 @@ namespace RarityScore.Models
 
             return metadataList;
         }
-
+        
         public static MetadataResult MapTerraResult(TerraContractResult terraContractResult)
         {
             var metadataList = new MetadataResult();
@@ -60,7 +65,7 @@ namespace RarityScore.Models
             return metadataList;
         }
 
-        public static MetadataResult MapRarity(MetadataResult metadata, List<AttributesResult> attributes)
+        public static MetadataResult MapRarity(int terranautId, MetadataResult metadata, List<AttributesResult> attributes, List<TerranautRank> ranks)
         {
 
             decimal totalTraitsScore = 0;
@@ -93,6 +98,12 @@ namespace RarityScore.Models
 
             metadata.AverageTraitsPercent = metadata.Metadata.Select(av => av.Rarity).Average();
             metadata.TotalRarityScore = totalTraitsScore;
+
+            if (ranks != null && ranks.Any())
+            {
+                metadata.Rank = ranks.FirstOrDefault(r => r.id == terranautId + "")?.rank ?? 0;
+                metadata.MaximumRank = ranks.Select(r => r.rank).Max();
+            }
 
             return metadata;
         }
