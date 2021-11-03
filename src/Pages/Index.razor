@@ -58,6 +58,7 @@
 
                         <div class="alert alert-dark" role="alert" style="margin-top:20px;">
                             <strong>Average Rarity: </strong>  @(mappedMetadataResult.AverageTraitsPercent.ToString("F2", CultureInfo.InvariantCulture) + "%" )
+                            
                         </div>
                         <div class="alert alert-info" role="alert">
                             <strong>Rarest Trait: </strong>  
@@ -66,10 +67,12 @@
                         </div>
                         <div class="alert alert-success" role="alert">
                             <strong>NFT Score: @(mappedMetadataResult.TotalRarityScore.ToString("F2", CultureInfo.InvariantCulture))</strong>
+                            <span class="badge badge-secondary float-right "> <span class="oi oi-caret-top text-success"></span> Bigger is better</span>
 
                         </div>
                         <div class="alert alert-warning" role="alert">
                             <strong>Rank: @mappedMetadataResult.Rank / @mappedMetadataResult.MaximumRank</strong>
+                            <span class="badge badge-secondary float-right "> <span class="oi oi-caret-bottom text-warning"></span> Smaller is better</span>
 
                         </div>
                     </div>
