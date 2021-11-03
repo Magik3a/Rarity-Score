@@ -1,5 +1,6 @@
 ﻿@page "/"
-@page "/id/{Id:int?}"
+@page "/Contract/{Contract?}"
+@page "/Contract/{Contract}/id/{Id:int?}"
 @using Microsoft.Extensions.Logging
 @using System.Globalization
 @using RarityScore.Configuration
@@ -7,6 +8,13 @@
 @inject HttpClient Http
 @inject NavigationManager MyNavigationManager
 
+
+<TopSection>
+    <Breadcrumbs>
+        <Breadcrumb Link="/admin" Title="asd" />
+        <Breadcrumb Title="asd" />
+    </Breadcrumbs>
+</TopSection>
 <div class="row">
 
     <h1>Check Rarity</h1>
@@ -144,6 +152,8 @@
 
     [Parameter]
     public int? Id { get; set; }
+    [Parameter]
+    public string Contract { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -155,11 +165,13 @@
 
         checkRarityFormModel.WalletAddress = contractAddresses.First().Address;
 
-        if (Id.HasValue)
+        if (Id.HasValue && !string.IsNullOrEmpty(Contract))
         {
             checkRarityFormModel.TerranautId = Id.Value;
+            checkRarityFormModel.WalletAddress = Contract;
             HandleValidSubmit();
         }
+
     }
 
     private Task ContractAddressChanged()
@@ -210,7 +222,7 @@
     private void NavigateToCounterComponent()
     {
 
-        MyNavigationManager.NavigateTo("Id/" + checkRarityFormModel.TerranautId + "");
+        MyNavigationManager.NavigateTo("/Contract/" + checkRarityFormModel.WalletAddress+ "/Id/" + checkRarityFormModel.TerranautId + "");
     }
     public void Dispose()
     {
