@@ -1,6 +1,6 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="page">
+<div class="page" style="height: 94%">
     <div class="sidebar">
         <NavMenu />
     </div>
@@ -13,5 +13,13 @@
         <div class="content px-4">
             @Body
         </div>
+        
     </div>
+    
 </div>
+
+<footer class="" style="height: 5%; position: relative">
+    <div class="text-center build-version">
+        Build Version @System.Reflection.Assembly.GetExecutingAssembly().GetName().Version
+    </div>
+</footer>

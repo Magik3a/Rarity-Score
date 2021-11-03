@@ -1,10 +1,16 @@
 ﻿@page "/"
+@page "/id/{Id:int?}"
 @using Microsoft.Extensions.Logging
 @using System.Globalization
 @using RarityScore.Configuration
 @inject ILogger<Index> Logger
 @inject HttpClient Http
-<div class="row"><h1>Check Rarity</h1></div>
+@inject NavigationManager MyNavigationManager
+
+<div class="row">
+
+    <h1>Check Rarity</h1>
+</div>
 
 <hr />
 <div class="row">
@@ -130,6 +136,9 @@
     
     private bool buttonDisables;
 
+    [Parameter]
+    public int? Id { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
         contractAddresses = await Http.GetFromJsonAsync<List<ContractAddressesConfig>>("contracts/nftcontracts.json");
@@ -139,6 +148,12 @@
         contractSite = contractAddresses.First().SiteUrl;
 
         checkRarityFormModel.WalletAddress = contractAddresses.First().Address;
+
+        if (Id.HasValue)
+        {
+            checkRarityFormModel.TerranautId = Id.Value;
+            HandleValidSubmit();
+        }
     }
 
     private Task ContractAddressChanged()
@@ -186,13 +201,28 @@
         return 0;
 
     }
+    private void NavigateToCounterComponent()
+    {
+
+        MyNavigationManager.NavigateTo("Id/" + checkRarityFormModel.TerranautId + "");
+    }
+    public void Dispose()
+    {
+        MyNavigationManager.LocationChanged -= HandleLocationChanged;
+    }
+    private void HandleLocationChanged(object sender, LocationChangedEventArgs e)
+    {
+        Logger.LogInformation("URL of new location: {Location}", e.Location);
+    }
 
     private async void HandleValidSubmit()
     {
         Logger.LogInformation("HandleValidSubmit called");
         buttonDisables = true;
         try
-        {
+        {;
+            NavigateToCounterComponent();
+
             var terraUrl = $"https://lcd.terra.dev/wasm/contracts/{checkRarityFormModel.WalletAddress}/store?query_msg=%7B%22nft_additional_info%22:%7B%22token_id%22:%22{checkRarityFormModel.TerranautId}%22%7D%7D";
 
             var terraContractResult = await Http.GetFromJsonAsync<TerraContractResult>(terraUrl);
