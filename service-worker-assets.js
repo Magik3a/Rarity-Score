@@ -121,6 +121,10 @@
       "url": "RarityScore.styles.css"
     },
     {
+      "hash": "sha256-+QkkmTZY71oVgQkQ96dV1ySyyMnHupknaO8p+cQfpkY=",
+      "url": "_content\/Microsoft.AspNetCore.Components.Web.Extensions\/headManager.js"
+    },
+    {
       "hash": "sha256-B2WNxcsVmIkpc4+eyvJAN\/XdekF8aTVVejtnRvJyzC4=",
       "url": "_framework\/Microsoft.AspNetCore.Components.dll"
     },
@@ -185,7 +189,7 @@
       "url": "_framework\/System.IO.Pipelines.dll"
     },
     {
-      "hash": "sha256-ON6A5hkdzzbNygnEPYrkxSxR2\/pd7qHdcCbKZEDuM4I=",
+      "hash": "sha256-NEjr5Gi1\/6sAzWXWC7NzDx8JrVZQAxAFSsq6GBWcDfk=",
       "url": "_framework\/RarityScore.dll"
     },
     {
@@ -285,7 +289,7 @@
       "url": "_framework\/System.Private.CoreLib.dll"
     },
     {
-      "hash": "sha256-HnHYdAV9U7KpkO97gdJ2SkNrHHEVOJ3GbYPuaF9ofRQ=",
+      "hash": "sha256-KEpb0bmqFVKjb8CjRAULGeOAYZ68BiZuSjQofe59RI8=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -293,5 +297,5 @@
       "url": "_framework\/blazor.webassembly.js"
     }
   ],
-  "version": "dmg4zXAP"
+  "version": "WqZuv5+l"
 };
